@@ -1,0 +1,53 @@
+---
+title: "Entregable_clase_1"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Practico 1: Entregar un Rmd donde se encuentren todos los vuelos que:
+  
+- Que arribaron con un retraso de mas de dos horas.
+- Volaron hacia Houston (IAH o HOU)
+- Fueron operados por United, American o Delta.
+- Salieron en Verano (Julio, Agosto y Septiembre)
+- Arrivaron mas de dos horas tarde, pero salieron bien.
+- Salieron entre medianoche y las 6 am.
+
+
+```{r}
+carriers = nycflights13::airlines
+dataset = nycflights13::flights
+dataset
+
+summary(dataset)
+dim(dataset)
+str(dataset)
+```
+
+
+```{r}
+arribaron_con_mas_de_dos_horas_de_retraso = subset(dataset, dataset$arr_delay > 120)
+arribaron_con_mas_de_dos_horas_de_retraso
+
+hacia_houston = subset(dataset, dataset$dest == 'HOU' | dataset$dest == 'IAH' )
+hacia_houston
+
+carriers
+
+operados_por_UA_AA_DL = subset(dataset, dataset$carrier == 'UA' | dataset$carrier == 'AA' | dataset$carrier == 'DL')
+operados_por_UA_AA_DL
+  
+arrivaron_tarde_pero_salieron_bien = subset(dataset, dataset$arr_delay > 120 & dataset$dep_delay  <= 0)
+arrivaron_tarde_pero_salieron_bien
+
+salieron_en_verano = subset(dataset, dataset$month == 7 | dataset$month == 8 | dataset$month == 9)
+salieron_en_verano
+  
+salieron_entre_medianoche_y_6_am = subset(dataset, dataset$hour >= 0 & dataset$hour <= 5)
+salieron_entre_medianoche_y_6_am
+
+```
+
