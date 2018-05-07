@@ -1,11 +1,16 @@
 ---
 title: "Entregable_clase_1"
 output: html_document
+
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+### Integrantes:
+
+- David Gonzales
+- Facundo Díaz Cobos
 
 ## Practico 1: Entregar un Rmd donde se encuentren todos los vuelos que:
   
