@@ -1,0 +1,50 @@
+---
+title: "Entreglable clase 2"
+author: "Facundo Díaz Cobos - David Gonzalez"
+date: "5/6/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Ejercicios. Práctico 1
+
+Los valores correctos estan en la diagonal de la matriz, 98% de precision para unas pocas lineas de R!
+
++ Mejore el rendimiento utilizando una normalizacion con z-scores provista por la funcion scale() de R.
+
++ Pruebe algunos valores alternativos de k=1, 5,  11, 15, 21 y seleccione el mejor valor de k.
+
++ mientras termina su merecido cafe verifique si el resultado cambia utilizando paciente elegidos aleatoriamente para el conjunto de validacion.
+
+
+## Practico 2: Entregar un Rmd donde se:
+
+- Elija un dataset clasificado de su preferencia y area (domain expertise), aplique un metodo de clustering y/o mixtura de Gaussianas en el mismo.
+
+- Investigue los resultados en el meta parametro $K$ numero de cumulos e investigue posibles procesos de seleccion del mismo.
+
+- Elabore un resumen, y selecione un mejor valor segun el/los criterios aplicados, discuta el significado de los cumulos
+encontrados. 
+
+- Comente la influencia de la normalizacion de los datos en los resultados del clustering.
+
+```{r}
+# Práctico 1:
+
+ds = iris
+summary(ds)
+# ds = read.csv("Data.csv")
+
+
+```
+
+```{r}
+# Práctico 2:
+# ds = read.csv("Data.csv")
+
+
+```

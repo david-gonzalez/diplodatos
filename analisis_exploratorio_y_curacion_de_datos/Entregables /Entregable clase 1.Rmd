@@ -1,7 +1,7 @@
 ---
 title: "Entregable_clase_1"
+author: "Facundo Díaz Cobos - David Gonzalez"
 output: html_document
-
 ---
 
 ```{r setup, include=FALSE}
@@ -22,8 +22,12 @@ knitr::opts_chunk$set(echo = TRUE)
 - Salieron entre medianoche y las 6 am.
 
 
+---
+
+Leemos los datsets
 ```{r}
 carriers = nycflights13::airlines
+carriers
 dataset = nycflights13::flights
 dataset
 
@@ -32,27 +36,39 @@ dim(dataset)
 str(dataset)
 ```
 
-
+### Vuelos Que arribaron con un retraso de mas de dos horas:
 ```{r}
 arribaron_con_mas_de_dos_horas_de_retraso = subset(dataset, dataset$arr_delay > 120)
 arribaron_con_mas_de_dos_horas_de_retraso
+```
 
+### Vuelos Que Volaron hacia Houston (IAH o HOU)
+```{r}
 hacia_houston = subset(dataset, dataset$dest == 'HOU' | dataset$dest == 'IAH' )
 hacia_houston
+```
 
-carriers
-
+### Vuelos Que Fueron operados por United, American o Delta.
+```{r}
 operados_por_UA_AA_DL = subset(dataset, dataset$carrier == 'UA' | dataset$carrier == 'AA' | dataset$carrier == 'DL')
 operados_por_UA_AA_DL
-  
+```
+
+### Vuelos Que Arrivaron mas de dos horas tarde, pero salieron bien.
+```{r}
 arrivaron_tarde_pero_salieron_bien = subset(dataset, dataset$arr_delay > 120 & dataset$dep_delay  <= 0)
 arrivaron_tarde_pero_salieron_bien
+```
 
+### Vuelos Que Salieron en Verano (Julio, Agosto y Septiembre)
+```{r}
 salieron_en_verano = subset(dataset, dataset$month == 7 | dataset$month == 8 | dataset$month == 9)
 salieron_en_verano
-  
+```
+
+### Vuelos Que Salieron entre medianoche y las 6 am.
+```{r} 
 salieron_entre_medianoche_y_6_am = subset(dataset, dataset$hour >= 0 & dataset$hour <= 5)
 salieron_entre_medianoche_y_6_am
-
 ```
 
