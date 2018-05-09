@@ -1,0 +1,166 @@
+---
+title: "Entreglable clase 2"
+author: "Facundo Díaz Cobos - David Gonzalez"
+date: "5/6/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+---
+
+## Practico 2: Entregar un Rmd donde se:
+
+- Elija un dataset clasificado de su preferencia y area (domain expertise), aplique un metodo de clustering y/o mixtura de Gaussianas en el mismo.
+
+- Investigue los resultados en el meta parametro $K$ numero de cumulos e investigue posibles procesos de seleccion del mismo.
+
+- Elabore un resumen, y selecione un mejor valor segun el/los criterios aplicados, discuta el significado de los cumulos
+encontrados. 
+
+- Comente la influencia de la normalizacion de los datos en los resultados del clustering.
+
+
+---
+
+Elejimos el dataset "letter-recognition", lo sacamos del repositorio mencionado en clases. https://archive.ics.uci.edu/ml/datasets/Letter+Recognition
+
+
+Data Set Information:
+
+The objective is to identify each of a large number of black-and-white rectangular pixel displays as one of the 26 capital letters in the English alphabet. The character images were based on 20 different fonts and each letter within these 20 fonts was randomly distorted to produce a file of 20,000 unique stimuli. Each stimulus was converted into 16 primitive numerical attributes (statistical moments and edge counts) which were then scaled to fit into a range of integer values from 0 through 15. We typically train on the first 16000 items and then use the resulting model to predict the letter category for the remaining 4000. See the article cited above for more details.
+
+Attribute Information:
+
+1. lettr capital letter (26 values from A to Z)
+2. x-box horizontal position of box (integer)
+3. y-box vertical position of box (integer)
+4. width width of box (integer)
+5. high height of box (integer)
+6. onpix total # on pixels (integer)
+7. x-bar mean x of on pixels in box (integer)
+8. y-bar mean y of on pixels in box (integer)
+9. x2bar mean x variance (integer)
+10. y2bar mean y variance (integer)
+11. xybar mean x y correlation (integer)
+12. x2ybr mean of x * x * y (integer)
+13. xy2br mean of x * y * y (integer)
+14. x-ege mean edge count left to right (integer)
+15. xegvy correlation of x-ege with y (integer)
+16. y-ege mean edge count bottom to top (integer)
+17. yegvx correlation of y-ege with x (integer)
+
+
+Elegimos este dataset porque en clases probamos predecir si tenia o no cancer, pero eran solo dos valores
+Queremos ver si funciona para muchos valores en este caso 26, ya que es el alfabero inglés. 
+
+
+---
+
+### Leemos los datasets:
+
+
+```{r}
+ds <- read.csv("ds.csv")
+# Vemos las dimensiones del mismo
+dim(ds)
+# Vemos un resumen de los datos
+summary(ds)
+head(ds, 5)
+```
+
+Extraemos dos subgrupos de datos, uno para entrenar el algoritmo y el otro para probarlo.
+
+```{r}
+ds = as.data.frame(lapply(ds, as.numeric))
+
+data_train <- ds[1:18000, -1]
+data_test <- ds[18001:19999, -1]
+
+data_train_labels <- ds[1:18000, 1]
+data_test_labels <- ds[18001:19999, 1]
+
+summary(ds$T)
+
+library(class)
+
+generate_data_test_pred <- function(k_){
+  data_test_pred <- knn(train=data_train, test=data_test, cl=data_train_labels, k=k_)
+  return(data_test_pred)
+}
+
+
+
+
+```
+
+
+Probamos la eficacia del algorimo.
+```{r}
+
+generate_results <- function(k, data_test_pred) {
+  total = length(data_test_labels)
+  yes <- 0
+  no <- 0
+  
+  for (i in 1:total) { 
+    if (data_test_labels[i] == data_test_pred[i]) {
+      yes = yes + 1
+    }
+    else {
+      no = no + 1
+    }
+  }
+
+
+  
+  cat("Prueba Generada con K=", k)
+  cat(" Porcentaje de Acierto: ", yes/total)
+  cat(" Porcentaje de Error: ", no/total)
+  cat("\n")
+  return(yes/total)
+}
+```
+
+Ahora probamos con diferentes valores de K:
+
+```{r}
+valores_de_k = c(2:20)
+valor_mas_alto = 0
+mejor_k = 2
+
+for (i in valores_de_k) {
+  data_test_pred = generate_data_test_pred(i)
+  valor = generate_results(i,data_test_pred)
+  
+  if (valor > valor_mas_alto) {
+    valor_mas_alto = valor
+    mejor_k = i
+  }
+}
+  
+  print("#################################################")
+  cat("El mejor resultado fue: ", valor_mas_alto)
+  cat("Usando k=", mejor_k)
+```
+
+### Observaciones
+
+Como podemos ver, tenemos mejores resultados con valores bajos de k... es especial k=3
+
+No hace falta aplicar una funcion a los datos 
+
+
+
+
+
+
+
+
+
+
+
+
