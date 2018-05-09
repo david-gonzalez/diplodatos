@@ -117,10 +117,9 @@ generate_results <- function(k, data_test_pred) {
 
 
   
-  cat("Prueba Generada con K=", k)
+  cat("\nPrueba Generada con K=", k)
   cat(" Porcentaje de Acierto: ", yes/total)
   cat(" Porcentaje de Error: ", no/total)
-  cat("\n")
   return(yes/total)
 }
 ```
@@ -142,18 +141,66 @@ for (i in valores_de_k) {
   }
 }
   
-  print("#################################################")
+  print("###################################################################################")
   cat("El mejor resultado fue: ", valor_mas_alto)
-  cat("Usando k=", mejor_k)
+  cat(" Usando k=", mejor_k)
 ```
 
-### Observaciones
+### NORMALIZACION
 
-Como podemos ver, tenemos mejores resultados con valores bajos de k... es especial k=3
+Ahora probamos con los datos normalizados. Aunque no deberia influir mucho, ya que no hay ningun feature que este en otra escala
 
-No hace falta aplicar una funcion a los datos 
+```{r}
 
+ds = as.data.frame(lapply(ds, as.numeric))
+ds_z <- scale(ds)
 
+data_train <- ds_z[1:18000, -1]
+data_test <- ds_z[18001:19999, -1]
+data_train_labels <- ds_z[1:18000, 1]
+data_test_labels <- ds_z[18001:19999, 1]
+
+valores_de_k = c(2:20)
+valor_mas_alto = 0
+mejor_k = 2
+
+for (i in valores_de_k) {
+  data_test_pred = generate_data_test_pred(i)
+  valor = generate_results(i,data_test_pred)
+  
+  if (valor > valor_mas_alto) {
+    valor_mas_alto = valor
+    mejor_k = i
+  }
+}
+  
+  print("###################################################################################")
+  cat("El mejor resultado fue: ", valor_mas_alto)
+  cat(" Usando k=",mejor_k)
+
+```
+
+### RESULTADOS
+
+El proceso de Nomralizacion nos dio peores resultados que no normalizado. Es de algun modo esperable ya que no habia features con valores en otras escalas o valores numericos muy altos que pesen mucho mas sobre los otros.
+
+Como podemos ver, tenemos mejores resultados con valores bajos de k... es especial k=4 sn normalizar.
+
+Valores grandes de k reducen el efecto de ruido en la clasificación, pero crean límites entre clases parecidas.
+Ya que entrenar el algoritmo con los datos y muestras que tenemos es bastante rapido, podemos probar con muchos valores de k
+
+Usando la imagen de wikipedia, podemos explicar como funcionan los cumulos y los valores de k.
+(https://es.wikipedia.org/wiki/K_vecinos_m%C3%A1s_pr%C3%B3ximos#/media/File:KnnClassification.svg)
+![knn](img.png)
+
+En este ejemplo se trata de averiguar el elmento desconocido, representado con circulo verde. KNN tiene que clasificar 
+si es un cuadrado o un triangulo.
+
+si k es = 3. Knn obvserva dos triangulos y un cuadrado, como hay más triangulos se va a predecir como un triangulo.
+ahora, si k= 5 tiene tres cuadrados y dos triangulos, por lo que el algoritmo lo va a clasificar como un cuadrado.
+
+Es por eso que valores grandes de k, hace que resista el ruido
+Pero por otro lado podemos caer en agrupar muchos valores de clases diferentes.
 
 
 
