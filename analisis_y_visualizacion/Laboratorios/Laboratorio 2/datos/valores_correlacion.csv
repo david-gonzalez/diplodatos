@@ -1,0 +1,8 @@
+Desde,Hasta,TipoCorrelacion,AbsDesde,AbsHasta,NombreCorto
+±0.00,±0.09,Correlación nula,0.00,0.09,NULA
+±0.10,±0.19,Correlación muy débil,0.10,0.19,MUY DEBIL
+±0.20,±0.49,Correlación débil,0.20,0.49,DÉBIL
+±0.50,±0.69,Correlación moderada,0.50,0.69,MODERADA
+±0.70,±0.84,Correlación significativa,0.70,0.84,SIGNIFICATIVA
+±0.85,±0.95,Correlación fuerte,0.85,0.95,FUERTE
+±0.96,±1.00,Correlación perfecta,0.96,1.00,PERFECTA
