@@ -67,4 +67,5 @@ ventas_df_dtype={'CODIGO_CLIENTE': object,
 
 ventas_df = pd.read_csv("./datos/datos-anonimizados-clientes.csv", dtype=ventas_df_dtype)
 
+
 print("Hola Mundo")
