@@ -109,4 +109,5 @@ Para ver como está construida la imagen, y si se desea poder regenerarla, se pu
 
 Los datos fueron previamente despersonalizados, ya que contienen datos reales sobre empresas. 
 Asi que para este ejercicio, se considerará como datos crudos u originales el dataset con los datos despersonalizados, ese es el único cambio
+que tienen los datos originales.ginales.cicio, se considerará como datos crudos u originales el dataset con los datos despersonalizados, ese es el único cambio
 que tienen los datos originales.ginales.
