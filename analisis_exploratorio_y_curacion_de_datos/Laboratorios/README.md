@@ -55,18 +55,20 @@ La imagen de docker se puede descargar con el siguiente comando:
 
 ```docker pull fdiazcobos/diplodatos ```
 
-Si se prefiere el imagen se puede construir con el siguiente comando.
+Si se prefiere el imagen se puede construir con el siguiente comando dentro de la carpeta jupyter-image
 
 ```docker build -t diplodatos -f Dockerfile . ```
 
 ### Comandos para correr la imagen de Docker
 
-```docker run -v <Dir_datos>:/usr/local/diplodatos/datos fdiazcobos/diplodatos ```
+```docker run -v <Dir_datos>:/home/jovyan/work/datos fdiazcobos/diplodatos ```
+
+al final se debe copiar y pegar el link que se genera en un browser y cambiar el host por `localhost`
 
 ### Qué hace la imagen.
 
-El script corre sobre una imagen base que posee python3 y las librerias mas comunes para trabajar con datos, estás se pueden obvservar en
-el archivo requirements.txt
+El script corre sobre una imagen base que levanta jupyter y contiene las librerias necesarias para correr nuestra notebook.
+El volumen es necesario montarlo ya que al final genera un nuevo archivo .zip con los datos ya limpios.
 
 Básicamente se buscará los datos en el directorio montado como volumen, se descomprimirán y se realizarán los pasos de la consigna.
 Una vez que se termine la limpieza en el directorio montado se generara un nuevo archivo comprimido con los datos limpios.
