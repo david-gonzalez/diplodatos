@@ -61,7 +61,7 @@ Si se prefiere el imagen se puede construir con el siguiente comando dentro de l
 
 ### Comandos para correr la imagen de Docker
 
-```docker run -v <Dir_datos>:/home/jovyan/work/datos fdiazcobos/diplodatos ```
+```docker run -p 8888:8888 -v <Dir_datos>:/home/jovyan/work/datos fdiazcobos/diplodatos ```
 
 al final se debe copiar y pegar el link que se genera en un browser y cambiar el host por `localhost`
 
